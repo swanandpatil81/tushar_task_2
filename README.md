@@ -1,3 +1,1 @@
-# tushar_task_2
-
-ExImpo
+# tushar-task-2

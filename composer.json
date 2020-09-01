@@ -1,0 +1,17 @@
+{
+    "name": "win10/eximpo",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Tushar Rum",
+            "email": "TRum@parkar.consulting"
+        }
+    ],
+    "config": {
+        "vendor-dir": "./lib/vendor"
+    },
+    "require": {
+        "twbs/bootstrap": "^4.5",
+        "phpoffice/phpspreadsheet": "^1.14"
+    }
+}
