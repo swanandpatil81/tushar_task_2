@@ -8,6 +8,7 @@ class upload {
     function index()
     {
         $global_file_arr = $_FILES;
+
         $destination_dir = APPPATH.'/public/upload/' ;
         $inputFileName = $this->uploadExcel($global_file_arr,$destination_dir);
         $excel_file_path = $destination_dir.$inputFileName ;

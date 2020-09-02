@@ -40,15 +40,17 @@ class get_columns {
 
         $spreadsheet = $reader->load($input_file_name);
 
-        $worksheet = $spreadsheet->getActiveSheet();        
+        $worksheet = $spreadsheet->getActiveSheet();   
+        $_SESSION['highestRow'] = $worksheet->getHighestRow();  
         $found_header_row = [];
         foreach ($worksheet->getRowIterator() as $row) {
         
             $cellIterator = $row->getCellIterator();
             $cellIterator->setIterateOnlyExistingCells(FALSE); 
             foreach ($cellIterator as $cell) {
+           // print_r($cell->getColumn());
              if($cell->getValue()!='')
-                    $found_header_row['db_column_names'][] = $cell->getValue() ;
+                    $found_header_row['db_column_names'][$cell->getColumn()] = $cell->getValue() ;
             }
             if(count($found_header_row) == 1) 
                     break;

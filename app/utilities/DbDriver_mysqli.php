@@ -7,10 +7,6 @@ class DbDriver_mysqli implements  DbDriver
     {
         $this->mysqli = new mysqli($host,$user,$pass,$db); 
     }
-    public function connect($host,$user,$pass,$db)
-    {
-
-    }
     public function showTables()
     {
       //  echo "here I am ";exit;
@@ -25,6 +21,17 @@ class DbDriver_mysqli implements  DbDriver
         }
 
        return $table_list; 
+    }
+    public function insert_batch($table_name,$insert_columns,$insert_values)
+    {
+        $sql = 'INSERT INTO '.$table_name.' ('.implode(', ', $insert_columns).') VALUES '.implode(', ', $insert_values);
+        return $this->mysqli->query($sql);
+    }
+    public function insert($table_name,$data)
+    {
+        $table_column_names = array_keys($data);
+        $sql = 'INSERT INTO '.$table_name.' ('.implode(', ', $table_column_names).') VALUES (\''.implode('\', \'', $data).'\') ';
+        return $this->mysqli->query($sql);
     }
 }
 

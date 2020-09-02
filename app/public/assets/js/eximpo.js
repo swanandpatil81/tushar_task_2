@@ -109,7 +109,7 @@ $(document).ready(function () {
   
                   $.each(response_obj.db_column_names, function(key, value)
                   {
-                    column_list.push('<label class="mx-1"><input checked="checked" class="mx-1" type="checkbox" name="worksheet_columns" value="'+ value +'">'+value+'</label>');
+                    column_list.push('<label class="mx-1"><input checked="checked" class="mx-1" type="checkbox" name="worksheet_columns" value="'+ key +'">'+value+'</label>');
                   });
                   $.each(response_obj.table_list, function(key, value)
                   {
@@ -132,7 +132,7 @@ $(document).ready(function () {
         var formData = new FormData();
         formData.append('selected_worksheet', $('#worksheet_list'). children("option:selected"). val());
 
-        formData.append('selected_table', $('#table_list'). children("option:selected"). val());
+        formData.append('selected_db_table', $('#table_list'). children("option:selected"). val());
 
         var selected_worksheet_columns = []; 
             $("input:checkbox[name=worksheet_columns]:checked").each(function() { 
@@ -154,17 +154,12 @@ $(document).ready(function () {
   
               if(response_obj.status == true) {      
   
-                  $.each(response_obj.db_column_names, function(key, value)
-                  {
-                    column_list.push('<label class="mx-1"><input checked="checked" class="mx-1" type="checkbox" value="'+ value +'">'+value+'</label>');
-                  });
-                  $.each(response_obj.table_list, function(key, value)
-                  {
-                    table_list.push('<option value="'+ value +'">'+ value +'</option>');
-                  });
-                  $('#column_list').html(column_list.join(''));
-                  $('#table_list').html(table_list);  
-                  $('#table_list').show();                 
+                alert('Import operation successful');
+
+              }
+              else
+              {
+                alert('Something went wrong in import');
               }
           }, 
             cache: false,

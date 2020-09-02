@@ -17,8 +17,14 @@ if(isset($request_uri_array[1]) && $request_uri_array[1]!='')
 
 
 $eximpo = new $route_controller();
+if(method_exists($eximpo, 'setNotify')){
+    
+    $eximpo->setNotify(new activity());
+}
 
 $eximpo->$route_method();
+
+
 
 
 
