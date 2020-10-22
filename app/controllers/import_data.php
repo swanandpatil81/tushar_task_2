@@ -3,7 +3,7 @@
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
-class import_data {
+class import_data extends eximpo {
 
     private $notify; 
 
@@ -35,10 +35,6 @@ class import_data {
     }
     private function importSelectedWorksheetColumns($input_file_path,$selected_worksheet,$selected_worksheet_columns,$total_rows,$selected_db_table)
     {
-        include APPPATH."config/database.php";
-        include APPPATH."config/spreadsheet.php";
-        $db_obj = new database(new DbDriver_mysqli($database_host,$database_user,$database_password,$database_dbname));
-
         $filterSubset = new SpreadsheetReadFilter();
         /**  Identify the type of $input_file_name  **/
         $inputFileType = \PhpOffice\PhpSpreadsheet\IOFactory::identify($input_file_path);
@@ -49,11 +45,11 @@ class import_data {
         
         $reader->setReadFilter($filterSubset);
         $filterSubset->setColumns($selected_worksheet_columns);
-        for ($startRow = 2; $startRow <= $total_rows; $startRow += $config_chunk_size) {
+        for ($startRow = 2; $startRow <= $total_rows; $startRow += $worksheet_read_chunk_size) {
             /**  Tell the Read Filter which rows we want this iteration  **/
             $reader->setLoadSheetsOnly($selected_worksheet);
             $reader->setReadDataOnly(TRUE);
-            $filterSubset->setRows($startRow,$config_chunk_size);
+            $filterSubset->setRows($startRow,$worksheet_read_chunk_size);
             /**  Load only the rows that match our filter  **/
             $spreadsheet = $reader->load($input_file_path);
             //    Do some processing here
@@ -76,12 +72,12 @@ class import_data {
                     }               
                 }
                 if(count($column_wise_data))
-                        $row_wise_data[$row_counter] = '( '.implode(',',$column_wise_data).' )';
+                        $row_wise_data[$row_counter] = ' '.implode(',',$column_wise_data).' ';
                 $row_counter++;    
 
             }
 
-            if(!$db_obj->insert_batch($selected_db_table,$column_names_list,$row_wise_data))
+            if(!$this->db->insert_batch($selected_db_table,$column_names_list,$row_wise_data))
                 return false;
 
         }

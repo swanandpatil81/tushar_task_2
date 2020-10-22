@@ -3,7 +3,7 @@
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
-class get_columns {
+class get_columns extends eximpo {
 
     function index()
     {
@@ -22,9 +22,7 @@ class get_columns {
 
     private function getDbTablesList()
     {
-        include APPPATH."config/database.php";
-        $db_obj = new database(new DbDriver_mysqli($database_host,$database_user,$database_password,$database_dbname));
-        return $db_obj->showTables();
+        return $this->db->showTables();
     }
     private function getWorksheetColumns($uploaded_file_name,$selected_worksheet)
     {

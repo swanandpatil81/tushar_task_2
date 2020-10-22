@@ -80,7 +80,8 @@ $(document).ready(function () {
                   worksheet_list.push('<option value="'+ value +'">'+ value +'</option>');
                 });
                 $('#worksheet_list').html(worksheet_list.join(''));
-                alert("File uploaded successfully. Please click next to go ahead.")
+                alert("File uploaded successfully.")
+                $('#step-2').show()
                 $('.uploadNextBtn').trigger('click');
             }
         }, 
@@ -118,6 +119,8 @@ $(document).ready(function () {
                   $('#column_list').html(column_list.join(''));
                   $('#table_list').html(table_list);  
                   $('#table_list').show();
+                  $('#step-3').show();
+                  $('#step-4').show();
                  
               }
           }, 

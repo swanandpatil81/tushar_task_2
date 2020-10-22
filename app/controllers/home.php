@@ -1,6 +1,6 @@
 <?php
 
-class home {
+class home extends eximpo {
     function index()
     {
         require_once  APPPATH."view/header.php";
